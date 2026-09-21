@@ -1,0 +1,8 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { beanSlug, recipe } from '../../lib/coffee';
+const posts = await getCollection('posts');
+const groups = Object.values(posts.reduce((r,p) => { const n=p.data.coffee.beans; r[n]??={name:n,origin:p.data.coffee.origin,posts:[]}; r[n].posts.push(p); return r; }, {} as Record<string,{name:string;origin?:string;posts:typeof posts}>));
+---
+<BaseLayout title="Beans"><section class="beans-page"><p class="eyebrow">Beans</p><h1>Every coffee tells<br/>a different story.</h1><p class="lede">The beans I have been learning with, and the recipes that brought them into focus.</p><div class="bean-list">{groups.map(g => <article><div><p class="bean-origin">{g.origin ?? 'Origin not noted'}</p><h2><a href={`/beans/${beanSlug(g.name)}/`}>{g.name}</a></h2><p>{g.posts.length} {g.posts.length===1?'extraction':'extractions'}</p></div><ul>{g.posts.map(p => <li><span>{p.data.title}</span><span>{recipe(p.data.coffee.dose,p.data.coffee.yield,p.data.coffee.extractionTime)}</span></li>)}</ul></article>)}</div></section></BaseLayout>
