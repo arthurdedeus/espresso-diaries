@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RecipeLine from '../../components/RecipeLine.astro';
+import { beanSlug, formatDate } from '../../lib/coffee';
+export async function getStaticPaths(){const posts=await getCollection('posts');const names=[...new Set(posts.map(p=>p.data.coffee.beans))];return names.map(name=>({params:{slug:beanSlug(name)},props:{name,posts:posts.filter(p=>p.data.coffee.beans===name)}}));}
+const {name,posts}=Astro.props; const newest=posts[0];
+---
+<BaseLayout title={name}><section class="bean-detail"><a class="back" href="/beans/">← All beans</a><p class="eyebrow">{newest.data.coffee.origin ?? 'Coffee notes'}</p><h1>{name}</h1>{newest.data.coffee.roaster&&<p class="lede">Roasted by {newest.data.coffee.roaster}</p>}<div class="attempt-list">{posts.sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf()).map(p=><article><time datetime={p.data.date.toISOString()}>{formatDate.format(p.data.date)}</time><h2><a href={`/posts/${p.id}/`}>{p.data.title}</a></h2><RecipeLine dose={p.data.coffee.dose} yieldAmount={p.data.coffee.yield} time={p.data.coffee.extractionTime}/><p>{p.data.excerpt}</p></article>)}</div></section></BaseLayout>

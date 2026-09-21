@@ -1,0 +1,6 @@
+---
+import { recipe } from '../lib/coffee';
+interface Props { dose: number; yieldAmount: number; time: number }
+const { dose, yieldAmount, time } = Astro.props;
+---
+<p class="recipe-line">{recipe(dose, yieldAmount, time)}</p>

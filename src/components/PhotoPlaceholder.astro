@@ -1,0 +1,5 @@
+---
+interface Props { label?: string; variant?: number; class?: string }
+const { label = 'Photo coming soon', variant = 1, class: className = '' } = Astro.props;
+---
+<div class:list={['photo-placeholder', `placeholder-${variant}`, className]} role="img" aria-label={label}><span>{label}</span></div>
