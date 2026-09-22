@@ -207,6 +207,10 @@ time,
   aspect-ratio: 4/3;
   border-radius: 3px;
 }
+
+.entry-image img {
+  object-fit: cover;
+}
 .photo-placeholder {
   position: relative;
   display: grid;
@@ -366,8 +370,12 @@ time,
   margin-top: 1.5rem;
 }
 .post-hero {
+  width: 100%;
   margin-top: 4rem;
   aspect-ratio: 16/9;
+  border-radius: 3px;
+  object-fit: cover;
+  object-position: center;
 }
 blockquote {
   max-width: 700px;
@@ -420,6 +428,14 @@ dd {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin: 4rem 0;
+}
+
+.photo-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  object-fit: cover;
+  object-position: center;
 }
 .next-time {
   max-width: 680px;
