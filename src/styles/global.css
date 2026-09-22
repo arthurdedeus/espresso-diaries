@@ -293,9 +293,10 @@ time,
 .bean-detail {
   padding: 8rem 0 10rem;
 }
-.prose-page {
-  width: min(700px, calc(100% - 3rem));
+.prose-page > p:not(.eyebrow) {
+  max-width: 700px;
 }
+
 .prose-page > p:not(.eyebrow, .lede) {
   font-family: var(--serif);
   font-size: 1.2rem;
