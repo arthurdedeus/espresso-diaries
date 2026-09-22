@@ -74,3 +74,14 @@ npm run build
 ```
 
 The static site is generated in `dist/` and can be deployed directly to Vercel.
+
+## PostHog
+
+Copy `.env.example` to `.env` and set the public project token for the intended PostHog project:
+
+```bash
+PUBLIC_POSTHOG_KEY=phc_your_project_token
+PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
+
+For PostHog Cloud EU, use `https://eu.i.posthog.com`. Add the same variables to Vercel for production and redeploy. The analytics snippet is omitted entirely when `PUBLIC_POSTHOG_KEY` is not set, so local development and preview builds do not send events by default.
