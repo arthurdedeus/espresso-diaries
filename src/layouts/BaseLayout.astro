@@ -1,9 +1,22 @@
 ---
 import '../styles/global.css';
 interface Props { title?: string; description?: string }
-const { title = 'Espresso Diaries', description = 'Notes from learning espresso and pouring milk.' } = Astro.props;
+const { title = 'Espresso Diaries', description = 'Notas sobre aprender espresso e latte art.' } = Astro.props;
 const path = Astro.url.pathname;
 const current = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
 ---
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="description" content={description}/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><title>{title === 'Espresso Diaries' ? title : `${title} · Espresso Diaries`}</title></head>
-<body><a class="skip" href="#content">Skip to content</a><header class="site-header"><a class="wordmark" href="/"><span class="cup" aria-hidden="true"></span>Espresso Diaries</a><nav aria-label="Primary"><a href="/" aria-current={current('/') ? 'page' : undefined}>Journal</a><a href="/beans/" aria-current={current('/beans') ? 'page' : undefined}>Beans</a><a href="/about/" aria-current={current('/about') ? 'page' : undefined}>About</a></nav></header><main id="content"><slot/></main><footer><span>Espresso Diaries</span><span>Made slowly, one cup at a time.</span></footer></body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="description" content={description}/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><title>{title === 'Espresso Diaries' ? title : `${title} · Espresso Diaries`}</title></head>
+<body><a class="skip" href="#content" data-pt="Pular para o conteúdo" data-en="Skip to content">Pular para o conteúdo</a><header class="site-header"><a class="wordmark" href="/"><span class="cup" aria-hidden="true"></span>Espresso Diaries</a><nav aria-label="Navegação principal"><a href="/" aria-current={current('/') ? 'page' : undefined} data-pt="Diário" data-en="Journal">Diário</a><a href="/beans/" aria-current={current('/beans') ? 'page' : undefined} data-pt="Grãos" data-en="Beans">Grãos</a><a href="/about/" aria-current={current('/about') ? 'page' : undefined} data-pt="Sobre" data-en="About">Sobre</a><label class="language-picker"><span class="sr-only" data-pt="Idioma" data-en="Language">Idioma</span><select id="language-select" aria-label="Idioma"><option value="pt">PT</option><option value="en">EN</option></select></label></nav></header><main id="content"><slot/></main><footer><span>Espresso Diaries</span><span data-pt="Feito devagar, uma xícara por vez." data-en="Made slowly, one cup at a time.">Feito devagar, uma xícara por vez.</span></footer>
+<script is:inline>
+  const select = document.querySelector('#language-select');
+  const applyLanguage = (language) => {
+    const lang = language === 'en' ? 'en' : 'pt';
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-pt][data-en]').forEach((element) => { element.textContent = element.dataset[lang]; });
+    document.querySelectorAll('[data-lang-content]').forEach((element) => { element.hidden = element.dataset.langContent !== lang; });
+    if (select) select.value = lang;
+    localStorage.setItem('espresso-diaries-language', lang);
+  };
+  applyLanguage(localStorage.getItem('espresso-diaries-language') || 'pt');
+  select?.addEventListener('change', (event) => applyLanguage(event.target.value));
+</script></body></html>
