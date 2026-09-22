@@ -18,9 +18,15 @@ Add an `.mdx` file to `src/content/posts/`. Its filename becomes the URL.
 ```mdx
 ---
 title: A quieter pour
+titlePt: Um desenho mais tranquilo
 date: 2026-09-21
 excerpt: A short summary for the journal page.
+excerptPt: Um pequeno resumo para a página do diário.
 pullQuote: "A sentence worth remembering."
+pullQuotePt: "Uma frase da sessão que vale lembrar."
+storyPt:
+  - Primeiro parágrafo do relato em português.
+  - Segundo parágrafo do relato em português.
 heroImage: /images/2026-09-21-a-quieter-pour/hero.jpg
 coffee:
   beans: Ethiopia Guji
@@ -43,6 +49,9 @@ latteArt:
 nextTime:
   - Add less air
   - Start the design sooner
+nextTimePt:
+  - Incorporar menos ar
+  - Começar o desenho mais cedo
 images:
   - src: /images/2026-09-21-a-quieter-pour/pour.jpg
     alt: Milk being poured into the espresso
@@ -51,7 +60,7 @@ images:
 Write the story of the session here.
 ```
 
-Only the title, date, excerpt, and essential coffee fields are required. Brew ratio is calculated automatically.
+The interface is bilingual. Portuguese is the default language and English can be selected from the navigation. New entries keep the English story in the MDX body and the Portuguese version in `storyPt`. Titles, excerpts, quotes, and next steps use the corresponding `*Pt` fields. Brew ratio is calculated automatically.
 
 ## Images
 
